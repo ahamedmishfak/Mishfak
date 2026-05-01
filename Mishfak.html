@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ahamed Mishfak | IT Operation Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #050d1a;
+      --bg2: #0a1628;
+      --accent: #00d4ff;
+      --accent2: #0066ff;
+      --gold: #ffd700;
+      --text: #c8d8f0;
+      --white: #ffffff;
+      --card: rgba(0,212,255,0.05);
+      --border: rgba(0,212,255,0.2);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #0a0f1f;
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 17px;
+      overflow-x: hidden;
+    }
+
+    /* ─── PARTICLE CANVAS BACKGROUND ─── */
+    #bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ─── SUBTLE RADIAL GLOW ─── */
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(0,102,255,0.10) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 80%, rgba(0,212,255,0.07) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 5%;
+      background: rgba(5,13,26,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 120px 5% 60px;
+      z-index: 1;
+      gap: 40px;
+    }
+
+    .hero-content { max-width: 600px; flex: 1; }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(0,212,255,0.1);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+      animation: fadeDown 0.8s ease both;
+    }
+
+    .hero-name {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 12px;
+      animation: fadeDown 0.9s ease both;
+    }
+
+    .hero-name span { color: var(--accent); }
+
+    .hero-title {
+      font-size: 1.3rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      animation: fadeDown 1s ease both;
+    }
+
+    .hero-desc {
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 36px;
+      font-size: 1.05rem;
+      animation: fadeDown 1.1s ease both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeDown 1.2s ease both;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 30px;
+      border-radius: 3px;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      color: #000;
+      box-shadow: 0 0 20px rgba(0,212,255,0.3);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 35px rgba(0,212,255,0.6);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+
+    .btn-outline:hover {
+      background: rgba(0,212,255,0.1);
+      transform: translateY(-2px);
+    }
+
+    /* ─── PROFILE PHOTO ─── */
+    .hero-visual {
+      position: relative;
+      right: auto;
+      top: auto;
+      transform: none;
+      width: 340px;
+      height: 340px;
+      min-width: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .profile-ring-outer {
+      position: absolute;
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,212,255,0.3);
+      animation: spin 14s linear infinite;
+    }
+
+    .profile-ring-outer::before {
+      content: '';
+      position: absolute;
+      width: 12px; height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--accent);
+      top: -6px; left: calc(50% - 6px);
+    }
+
+    .profile-ring-inner {
+      position: absolute;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,102,255,0.3);
+      animation: spin 10s linear infinite reverse;
+    }
+
+    .profile-ring-inner::before {
+      content: '';
+      position: absolute;
+      width: 8px; height: 8px;
+      background: var(--accent2);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent2);
+      top: -4px; left: calc(50% - 4px);
+    }
+
+    .profile-photo-wrap {
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 30px rgba(0,212,255,0.4), 0 0 60px rgba(0,102,255,0.2);
+      z-index: 2;
+      animation: fadeDown 1s ease both;
+      flex-shrink: 0;
+    }
+
+    .profile-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      display: block;
+    }
+
+    /* ─── RESPONSIVE HERO for mobile ─── */
+    @media (max-width: 900px) {
+      #hero {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding-top: 100px !important;
+        padding-bottom: 60px !important;
+        min-height: auto !important;
+        gap: 30px !important;
+      }
+
+      .hero-visual {
+        order: -1 !important;
+        width: 240px !important;
+        height: 240px !important;
+        min-width: 240px !important;
+      }
+
+      .profile-ring-outer {
+        width: 240px !important;
+        height: 240px !important;
+      }
+
+      .profile-ring-inner {
+        width: 185px !important;
+        height: 185px !important;
+      }
+
+      .profile-photo-wrap {
+        width: 140px !important;
+        height: 140px !important;
+      }
+
+      .hero-content {
+        max-width: 100% !important;
+      }
+
+      .hero-name {
+        font-size: clamp(1.8rem, 7vw, 2.5rem) !important;
+      }
+
+      .cta-row {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+      }
+
+      .hero-info-chips {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-visual {
+        width: 190px !important;
+        height: 190px !important;
+        min-width: 190px !important;
+      }
+      .profile-ring-outer { width: 190px !important; height: 190px !important; }
+      .profile-ring-inner { width: 148px !important; height: 148px !important; }
+      .profile-photo-wrap { width: 112px !important; height: 112px !important; }
+    }
+
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── CONTACT STRIP ─── */
+    #contact-strip {
+      position: relative;
+      z-index: 1;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 5%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact-item:hover { color: var(--accent); }
+
+    .contact-item .ci-icon {
+      width: 36px; height: 36px;
+      background: rgba(0,212,255,0.1);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .contact-item:hover .ci-icon {
+      background: rgba(0,212,255,0.2);
+      border-color: var(--accent);
+    }
+
+    /* ─── SECTIONS ─── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 90px 5%;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    .section-title span { color: var(--accent); }
+
+    /* ─── ABOUT ─── */
+    #about { background: var(--bg2); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    .about-text p {
+      margin-bottom: 16px;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    .lang-block { margin-top: 28px; }
+
+    .lang-block h4 {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+
+    .lang-tags {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .lang-tag {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: all 0.3s;
+    }
+
+    .lang-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,212,255,0.15);
+    }
+
+    .lang-tag .lang-flag { font-size: 1.3rem; }
+
+    .about-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .img-card {
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--border);
+    }
+
+    .img-card.wide { grid-column: span 2; }
+
+    .img-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+
+    .img-card.wide img { height: 200px; }
+    .img-card:hover img { transform: scale(1.05); }
+
+    .img-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(5,13,26,0.9));
+      color: var(--accent);
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      padding: 18px 10px 8px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* ─── SKILLS ─── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .skills-list-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 32px;
+    }
+
+    .skills-list-wrap h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .skills-ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .skills-ul li {
+      padding: 10px 14px;
+      border-left: 3px solid var(--accent);
+      background: rgba(0,212,255,0.04);
+      font-size: 0.97rem;
+      font-weight: 600;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .skills-ul li:hover { background: rgba(0,212,255,0.1); }
+
+    .cert-list {
+      list-style: none;
+      counter-reset: cert-counter;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cert-list li {
+      counter-increment: cert-counter;
+      padding: 10px 14px;
+      background: rgba(0,212,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.97rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cert-list li.cert-uom {
+      border-color: rgba(255,165,0,0.4);
+      background: rgba(255,165,0,0.05);
+    }
+
+    .cert-uom .cert-uni { color: #ffaa33; font-weight: 700; }
+    .cert-uom::before { color: #ffaa33 !important; }
+
+    .cert-list li::before {
+      content: counter(cert-counter, decimal-leading-zero);
+      font-family: 'Orbitron', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      min-width: 28px;
+    }
+
+    .skill-bar-wrap { margin-top: 18px; }
+
+    .skill-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .skill-bar-label span:last-child { color: var(--accent); }
+
+    .skill-bar-bg {
+      background: rgba(255,255,255,0.07);
+      border-radius: 2px;
+      height: 6px;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      border-radius: 2px;
+      animation: barGrow 1.4s ease both;
+    }
+
+    @keyframes barGrow { from { width: 0; } }
+
+    /* ─── WORK PHOTOS ─── */
+    .work-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 10px;
+    }
+
+    .work-photo-card {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .work-photo-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+      transition: transform 0.4s;
+    }
+
+    .work-photo-card:hover img { transform: scale(1.04); }
+
+    .work-photo-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(5,13,26,0.92));
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      padding: 22px 14px 10px;
+    }
+
+    @media (max-width: 600px) {
+      .work-photos { grid-template-columns: 1fr; }
+    }
+
+    /* ─── EXPERIENCE TABLE ─── */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.97rem; }
+
+    th {
+      background: rgba(0,212,255,0.1);
+      color: var(--accent);
+      font-family: 'Orbitron', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(0,212,255,0.06);
+      font-weight: 500;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(0,212,255,0.04); }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+    }
+
+    .badge.gold {
+      background: rgba(255,215,0,0.15);
+      color: var(--gold);
+      border: 1px solid rgba(255,215,0,0.3);
+    }
+
+    /* ─── RESOURCES / LINKS ─── */
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .link-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+      padding: 28px 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .link-card:hover {
+      border-color: var(--accent);
+      background: rgba(0,212,255,0.08);
+      transform: translateY(-4px);
+    }
+
+    .link-icon { font-size: 2rem; }
+
+    .link-name {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.85rem;
+      color: var(--white);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .link-desc { font-size: 0.85rem; color: var(--text); opacity: 0.8; }
+
+    /* ─── TOOL / IP CHECKER ─── */
+    .tool-box {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .tool-box h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+
+    .tool-box p { margin-bottom: 24px; line-height: 1.7; font-size: 1rem; opacity: 0.85; }
+
+    .ip-input {
+      width: 100%;
+      padding: 14px 18px;
+      background: rgba(0,212,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--white);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      margin-bottom: 14px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .ip-input:focus { border-color: var(--accent); }
+
+    .tool-result {
+      display: none;
+      margin-top: 20px;
+      padding: 20px;
+      background: rgba(0,212,255,0.04);
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      line-height: 2;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 40px 5%;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    footer span { color: var(--accent); }
+
+    /* ─── HERO INFO CHIPS ─── */
+    .hero-info-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+      animation: fadeDown 1.05s ease both;
+    }
+
+    .info-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,212,255,0.07);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .info-chip span { font-size: 0.95rem; }
+
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .about-images { grid-template-columns: 1fr; }
+      .img-card.wide { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     PARTICLE NETWORK BACKGROUND
+════════════════════════════════════════════════ -->
+<canvas id="bg"></canvas>
+<div class="bg-glow"></div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#hero" class="nav-logo">HM. <span>Ahamed Mishfak.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#tool">IP Tool</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-tag">This is my portfolio</div>
+    <h1 class="hero-name">Aahamed <span>Mishfak</span></h1>
+    <div class="hero-title">IT Operation Manager</div>
+
+    <div class="hero-info-chips">
+      <div class="info-chip"><span>📍</span> Colombo, Sri Lanka</div>
+      <div class="info-chip"><span>📞</span> +94769779914</div>
+      <div class="info-chip"><span>🎓</span> CCNA · CCNP · BSc (Hons) Computer System & Networking</div>
+    </div>
+
+    <p class="hero-desc" style="text-align: justify;">
+      Motivated IT Operations professional with expertise in LAN/WAN infrastructure, network security, and enterprise support. Skilled in Cisco technologies (CCENT, CCNA, CCNP), troubleshooting, and system optimization. Proven ability to reduce downtime, improve efficiency, and ensure high availability of critical services. Strong team leader committed to continuous improvement and reliable IT operations.
+    </p>
+    <div class="hero-btns">
+      <a href="mailto:mishfakit@gmail.com" class="btn btn-primary">Contact Me</a>
+      <a href="https://www.linkedin.com/in/ahamed-mishfak-7b749a297" target="_blank" class="btn btn-outline">LinkedIn</a>
+      <a href="https://tspqatar.com/" target="_blank" class="btn btn-outline">My Projects</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="profile-ring-outer"></div>
+    <div class="profile-ring-inner"></div>
+    <div class="profile-photo-wrap">
+      <img src="file:///D:/final/Image/Ahamed.jpg" alt="Ahamed Mishfak" class="profile-photo"/>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT STRIP -->
+<div id="contact-strip">
+  <a href="tel:+94769779914" class="contact-item">
+    <div class="ci-icon">📞</div>
+    +94 769779914
+  </a>
+  <a href="mailto:mishfakit@gmail.com" class="contact-item">
+    <div class="ci-icon">✉️</div>
+    mishfakit@gmail.com
+  </a>
+  <a href="https://www.linkedin.com/in/ahamed-mishfak-7b749a297" target="_blank" class="contact-item">
+    <div class="ci-icon">💼</div>
+    LinkedIn Profile
+  </a>
+  <a href="https://tspqatar.com/" target="_blank" class="contact-item">
+    <div class="ci-icon">🌐</div>
+    See My project
+  </a>
+  <div class="contact-item">
+    <div class="ci-icon">📍</div>
+    Colombo, Sri Lanka
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <div class="section-label">Who I Am</div>
+    <h2 class="section-title">About <span>Me</span></h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p style="text-align: justify;">
+        Network Engineering graduate with hands-on experience in LAN/WAN networking, IT infrastructure, CCTV, and enterprise support. Holds NVQ Level 4 in ICT Technician along with CCNA, CCNP, and CCENT certifications. Skilled in Cisco networking, troubleshooting, and system optimization to ensure reliable and high-performance IT operations.
+      </p>
+      <p style="text-align: justify;">
+        Currently working as an <strong style="color:var(--accent);">IT Operations Manager</strong>,
+        overseeing networking infrastructure, system performance, and technical support services.
+        Experienced in managing LAN/WAN environments, configuring Cisco devices, and ensuring high network availability
+        with a proven track record of achieving up to 98% uptime. Skilled in troubleshooting, network security,
+        and supporting enterprise IT systems for optimal performance.
+      </p>
+      <p style="text-align: justify;">
+        Passionate about continuously learning and adapting to new technologies, with a strong focus on networking and security systems.
+        Committed to delivering reliable, efficient, and professional IT solutions that support business operations and improve system performance.
+      </p>
+
+      <div class="lang-block">
+        <h4>🌐 Languages</h4>
+        <div class="lang-tags">
+          <div class="lang-tag"><span class="lang-flag">🇱🇰</span> Tamil</div>
+          <div class="lang-tag"><span class="lang-flag">🇬🇧</span> English</div>
+          <div class="lang-tag"><span class="lang-flag">🇱🇰</span> Sinhala</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-images">
+      <div class="img-card">
+        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=80" alt="Network Infrastructure"/>
+        <div class="img-label">Network Infra</div>
+      </div>
+      <div class="img-card">
+        <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&q=80" alt="Firewall Security"/>
+        <div class="img-label">Firewall Security</div>
+      </div>
+      <div class="img-card">
+        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=400&q=80" alt="CCTV Systems"/>
+        <div class="img-label">CCTV & Surveillance</div>
+      </div>
+      <div class="img-card">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&q=80" alt="Server Room"/>
+        <div class="img-label">Server Systems</div>
+      </div>
+      <div class="img-card wide">
+        <img src="https://images.unsplash.com/photo-1551703599-6b3e8379aa8c?w=800&q=80" alt="Wireless Network"/>
+        <div class="img-label">Wireless & Access Points</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <div class="section-label">What I Know</div>
+    <h2 class="section-title">Skills & <span>Certifications</span></h2>
+  </div>
+
+  <div class="work-photos">
+    <div class="work-photo-card">
+      <img src="file:///D:/final/Image/MishfakC.jpeg" alt="MishfakC" class="profile-photo"/>
+      <div class="work-photo-label">🏅 CCNA Certification Ceromony</div>
+    </div>
+    <div class="work-photo-card">
+      <img src="file:///D:/final/Image/Mishfak.jpg" alt="Mishfak" class="profile-photo"/>
+      <div class="work-photo-label">🏅 CCNP Certification Ceromony</div>
+    </div>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skills-list-wrap">
+      <h3>Technical Skills</h3>
+      <ul class="skills-ul">
+        <li>Networking: Routing, Switching, LAN/WAN, VPN, VLANs.</li>
+        <li>Cisco Routers/Switches, Firewalls.</li>
+        <li>Systems: Windows OS, System Administration, Virtualization.</li>
+        <li>IT Support: Troubleshooting, Hardware & Software Maintenance.</li>
+        <li>POS, ERP Systems: Installation, Configuration & Troubleshooting.</li>
+        <li>Protocols: ARP, DHCP, DNS, NAT, PAT, STP, RSTP, VPN.</li>
+        <li>CCTV Installation & Access Control</li>
+        <li>Active Directory (AD), Windows server.</li>
+        <li>Firewall</li>
+        <li>Artificial Intelligence (AI)</li>
+        <li>Cloud Computing</li>
+      </ul>
+    </div>
+
+    <div class="skills-list-wrap">
+      <h3>Achievements</h3>
+      <ol class="cert-list">
+        <li>BSc (Hons) Computer System & Networking</li>
+        <li>ICT Technician (NVQ LEVEL- 4)</li>
+        <li>CCST – Cisco Certified Support Technician</li>
+        <li>CCNA – Cisco Certified Network Associate</li>
+        <li>CCNP – Cisco Certified Network Professional</li>
+        <li>Introduction to Internet of Things (IoT) – Cisco</li>
+        <li class="cert-uom">Web Designing <span class="cert-uni"> - Orion Campus</span></li>
+      </ol>
+
+      <br>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>Networking</span><span>98%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:98%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>Active Directory</span><span>90%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>IT Infrastructure Management</span><span>95%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:95%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>Microsoft 365</span><span>82%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:82%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>IT Trouble Shooting Success Rate</span><span>89%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:89%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE TABLE -->
+<section id="experience">
+  <div class="section-header">
+    <div class="section-label">Track Record</div>
+    <h2 class="section-title">Working <span>Experience</span></h2>
+  </div>
+
+  <div class="work-photos">
+    <div class="work-photo-card">
+      <div class="work-photo-label">📡 IT Lab Setup – Synology NAS & Aruba Switch</div>
+    </div>
+    <div class="work-photo-card">
+      <div class="work-photo-label">🖥️ Server & Network Configuration</div>
+    </div>
+  </div>
+
+  <div class="table-wrap" style="margin-top:40px;">
+    <table>
+      <thead>
+        <tr>
+          <td>2025–Present</td>
+          <td>IT Operation Manager</td>
+          <td>Darul Iman Trust – Sri Lanka</td>
+          <td>LAN/WAN, POS, ERP, IT Support, Network Management</td>
+          <td><span class="badge">Current</span></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2024–2025</td>
+          <td>Student / Trainee</td>
+          <td><a href="https://atnedu.lk/" target="_blank" style="color:var(--accent);text-decoration:none;">ATN Campus – Sri Lanka</a></td>
+          <td>CCNA, CCNP, Network Engineering Training</td>
+          <td><span class="badge gold">Completed</span></td>
+        </tr>
+        <tr>
+          <td>2023–2024</td>
+          <td>ICT Technician</td>
+          <td>Training Institute (NAITA) – Sri Lanka</td>
+          <td>IT Support, Hardware, System Maintenance, CCNA Lab</td>
+          <td><span class="badge gold">Completed</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- RESOURCES / LINKS -->
+<section id="resources">
+  <div class="section-header">
+    <div class="section-label">Useful Links</div>
+    <h2 class="section-title">IT <span>Resources</span></h2>
+  </div>
+  <div class="links-grid">
+    <a href="https://www.cisco.com/c/en/us/training-events/training-certifications/certifications.html" target="_blank" class="link-card">
+      <div class="link-icon">🎓</div>
+      <div class="link-name">Cisco Certifications</div>
+      <div class="link-desc">CCNA / CCNP official portal</div>
+    </a>
+    <a href="https://www.fortinet.com/training/cybersecurity-professionals" target="_blank" class="link-card">
+      <div class="link-icon">🔒</div>
+      <div class="link-name">Fortinet Training</div>
+      <div class="link-desc">NSE courses & resources</div>
+    </a>
+    <a href="https://admin.microsoft.com" target="_blank" class="link-card">
+      <div class="link-icon">☁️</div>
+      <div class="link-name">Microsoft 365</div>
+      <div class="link-desc">Admin center portal</div>
+    </a>
+    <a href="https://www.arubanetworks.com/support-services/" target="_blank" class="link-card">
+      <div class="link-icon">📡</div>
+      <div class="link-name">Aruba Support</div>
+      <div class="link-desc">Aruba networking docs</div>
+    </a>
+    <a href="https://www.linkedin.com/in/ahamed-mishfak-7b749a297" target="_blank" class="link-card">
+      <div class="link-icon">💼</div>
+      <div class="link-name">LinkedIn</div>
+      <div class="link-desc">Connect with Mohamed</div>
+    </a>
+  </div>
+</section>
+
+<!-- IP TOOL -->
+<section id="tool">
+  <div class="section-header">
+    <div class="section-label">Interactive Tool</div>
+    <h2 class="section-title">IP Address <span>Validator</span></h2>
+  </div>
+  <div class="tool-box">
+    <h3>🔍 Network IP Checker</h3>
+    <p>Enter an IP address to validate it and check its class — useful for quick network analysis.</p>
+    <input type="text" class="ip-input" id="ipInput" placeholder="e.g. 192.168.1.1" />
+    <button class="btn btn-primary" onclick="checkIP()">Analyse IP</button>
+    <div class="tool-result" id="ipResult"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Ahamed Mishfak</span> · IT Operation Manager </p>
+  <p style="margin-top:8px; opacity:0.7;">
+    📞 +94 769779914&nbsp;·&nbsp;
+    ✉️ mishfakit@gmail.com &nbsp;·&nbsp;
+    CCNA · CCNP · ICT Technician
+  </p>
+  <p style="margin-top:8px; opacity:0.6; font-size:0.85rem;">Languages: Tamil · English · Sinhala</p>
+</footer>
+
+<!-- ═══════════════════════════════════════════════
+     PARTICLE NETWORK BACKGROUND ANIMATION
+════════════════════════════════════════════════ -->
+<script>
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+let w, h;
+let particles = [];
+
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * w;
+    this.y = Math.random() * h;
+    this.vx = (Math.random() - 0.5) * 1;
+    this.vy = (Math.random() - 0.5) * 1;
+    this.size = Math.random() * 2 + 1;
+  }
+  move() {
+    this.x += this.vx;
+    this.y += this.vy;
+    if (this.x < 0 || this.x > w) this.vx *= -1;
+    if (this.y < 0 || this.y > h) this.vy *= -1;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(0, 200, 255, 0.8)";
+    ctx.fill();
+  }
+}
+
+function connect(p1, p2) {
+  let dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+  if (dist < 120) {
+    ctx.beginPath();
+    ctx.strokeStyle = `rgba(0, 200, 255, ${1 - dist / 120})`;
+    ctx.lineWidth = 1;
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.stroke();
+  }
+}
+
+function init() {
+  particles = [];
+  let count = 90;
+  for (let i = 0; i < count; i++) {
+    particles.push(new Particle());
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, w, h);
+  for (let i = 0; i < particles.length; i++) {
+    particles[i].move();
+    particles[i].draw();
+    for (let j = i + 1; j < particles.length; j++) {
+      connect(particles[i], particles[j]);
+    }
+  }
+  requestAnimationFrame(animate);
+}
+
+window.addEventListener("resize", () => {
+  resize();
+  init();
+});
+
+resize();
+init();
+animate();
+
+/* ── IP Checker ── */
+function checkIP() {
+  const input = document.getElementById('ipInput').value.trim();
+  const resultBox = document.getElementById('ipResult');
+  const ipRegex = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
+  const match = input.match(ipRegex);
+  if (!match) {
+    resultBox.style.display = 'block';
+    resultBox.style.borderColor = '#ff4466';
+    resultBox.style.color = '#ff4466';
+    resultBox.innerHTML = '✗ Invalid IP address format. Example: 192.168.1.1';
+    return;
+  }
+  const octets = [parseInt(match[1]), parseInt(match[2]), parseInt(match[3]), parseInt(match[4])];
+  if (octets.some(o => o > 255)) {
+    resultBox.style.display = 'block';
+    resultBox.style.borderColor = '#ff4466';
+    resultBox.style.color = '#ff4466';
+    resultBox.innerHTML = '✗ Each octet must be between 0 and 255.';
+    return;
+  }
+  let ipClass = '', type = '', range = '';
+  const first = octets[0];
+  if (first >= 1 && first <= 126) {
+    ipClass = 'Class A'; range = '1.0.0.0 – 126.255.255.255';
+    type = first === 10 ? 'Private (RFC 1918)' : 'Public';
+  } else if (first === 127) {
+    ipClass = 'Loopback'; range = '127.0.0.0 – 127.255.255.255';
+    type = 'Reserved / Loopback';
+  } else if (first >= 128 && first <= 191) {
+    ipClass = 'Class B'; range = '128.0.0.0 – 191.255.255.255';
+    type = (first === 172 && octets[1] >= 16 && octets[1] <= 31) ? 'Private (RFC 1918)' : 'Public';
+  } else if (first >= 192 && first <= 223) {
+    ipClass = 'Class C'; range = '192.0.0.0 – 223.255.255.255';
+    type = (first === 192 && octets[1] === 168) ? 'Private (RFC 1918)' : 'Public';
+  } else if (first >= 224 && first <= 239) {
+    ipClass = 'Class D'; range = '224.0.0.0 – 239.255.255.255';
+    type = 'Multicast';
+  } else {
+    ipClass = 'Class E'; range = '240.0.0.0 – 255.255.255.255';
+    type = 'Experimental / Reserved';
+  }
+  resultBox.style.display = 'block';
+  resultBox.style.borderColor = 'var(--accent)';
+  resultBox.style.color = 'var(--accent)';
+  resultBox.innerHTML = `✔ Valid IP Address\n───────────────────\nIP Address : ${input}\nClass      : ${ipClass}\nType       : ${type}\nRange      : ${range}\nBinary     : ${octets.map(o => o.toString(2).padStart(8,'0')).join('.')}`;
+}
+
+document.getElementById('ipInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') checkIP();
+});
+</script>
+
+</body>
+</html>
